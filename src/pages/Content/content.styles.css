@@ -1,0 +1,44 @@
+  #npdContainer{
+   position: absolute;
+   z-index: 9999999999999;
+  }
+
+  #npdContainer.hide{ 
+   filter: opacity(0%);
+   display: none;
+  }
+  #npdContainer.show{ 
+   filter: opacity(100%);
+   display: block;
+  }
+
+  #npdContainer .npdBtn{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border: 1px solid transparent;
+   background-color: white;
+   border-radius: 3px;
+   gap: 2px;
+   margin: 0;
+   font-weight: bold;
+   user-select: none;
+  }
+
+  #npdContainer .npdBtn > .npdIcon {
+    width: 20px; 
+    height: 20px; 
+    padding: 0;
+    margin: 0;
+  }
+
+  #npdContainer .npdBtn.animation{
+    transition: all 300ms;
+  }
+  
+  #npdContainer .npdBtn:hover{
+   filter: brightness(70%);
+   /* border: 1px solid black; */
+  
+  }

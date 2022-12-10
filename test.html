@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+ <style>
+  #npdContainer{
+   position: absolute;
+  }
+
+  #npdContainer.hide{ 
+   filter: opacity(0%);
+   display: none;
+  }
+  #npdContainer.show{ 
+   filter: opacity(100%);
+   display: block;
+  }
+
+  #npdContainer .npdBtn{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border: 1px solid transparent;
+   background-color: white;
+   border-radius: 3px;
+   gap: 2px;
+   margin: 0;
+   font-weight: bold;
+   user-select: none;
+  }
+
+  #npdContainer .npdBtn > .npdIcon {
+    width: 20px; 
+    height: 20px; 
+    padding: 0;
+    margin: 0;
+  }
+
+  #npdContainer .npdBtn.animation{
+    transition: all 300ms;
+  }
+  
+  #npdContainer .npdBtn:hover{
+   filter: brightness(70%);
+   /* border: 1px solid black; */
+  
+  }
+ </style>
+
+ <script>
+
+   (async ()=>{
+      if (document.readyState !== 'loading') {
+          console.log('DOM is already ready');
+          InitScript();
+      } else {
+          document.addEventListener('DOMContentLoaded', function () {
+              console.log('DOM was not ready');
+              InitScript();
+          });
+      }
+
+      
+      async function InitScript(){
+       console.log('script loaded!')
+
+       const DOMnodes = getNodes()
+       // const DOMnodes = getNodes() as HTMLParagraphElement[];
+       console.log('DOMnodes',DOMnodes);
+
+       let isIconVisible = false
+       const npdNode = createNpdBtn();
+
+       const showIcon = ()=>{
+        // npdNode.classList.remove('hide')
+        npdNode.classList.add('show')
+       }
+
+       const removeIcon = ()=>{
+        npdNode.classList.remove('show')
+        // npdNode.classList.add('hide')
+       }
+       
+       function getPosition(element) {
+           var clientRect = element.getBoundingClientRect();
+           return {left: clientRect.left + document.body.scrollLeft,
+                   top: clientRect.top + document.body.scrollTop};
+       }
+
+       const moveIconToNode =(node)=>{
+        const pos = getPosition(node)
+        console.log(pos)
+         npdNode.style.top = pos.top + 'px'
+         npdNode.offsetLeft= pos.left + 'px';
+       }
+
+       
+
+
+       let timeout = 0;
+       DOMnodes.forEach(node =>{
+
+            
+        node.addEventListener('mouseenter', (event)=>{
+         moveIconToNode(node)
+          showIcon()
+          console.log("onenter")
+        })
+
+
+         node.addEventListener('mouseleave', (event)=>{
+          clearTimeout(timeout)
+          timeout = setTimeout(() => removeIcon(), 2000) 
+          console.log('onleave')
+         })
+         
+
+       })
+
+
+
+      }
+
+
+
+
+      const getNodes = ()=>{
+         const pTags = document.querySelectorAll('p') || []
+         return [...pTags]
+      }
+
+      const getNpdBtn = ()=>{
+       return document.getElementById('npdContainer')
+      }
+
+      const createNpdBtn = ()=>{
+       let ele = document.getElementById('npdContainer')
+       if(ele) return ele
+
+
+
+
+       const container = document.createElement('div')
+       container.classList.add('hide')
+       container.id = 'npdContainer'
+
+       const btn =  document.createElement('button')
+       btn.classList.add('npdBtn')
+       btn.classList.add('animation')
+
+       const img =  document.createElement('img')
+       img.classList.add('npdIcon')
+       img.src = 'https://img.icons8.com/fluency/96/null/notepad.png'
+
+       const span =  document.createElement('span')
+       span.innerText = 'Save it!'
+
+
+       btn.appendChild(img)
+       btn.appendChild(span)
+       container.appendChild(btn)
+
+       document.querySelector('body').appendChild(container)
+
+       return container
+      }
+
+   })()
+
+
+
+
+
+
+
+ </script>
+
+</head>
+<body>
+
+ <!-- <div id="npdContainer" class="hide">
+  <button class="npdBtn animation">
+   <img class="npdIcon" src="https://img.icons8.com/fluency/96/null/notepad.png"/>
+   <span>Save it!</span>
+  </button>
+ </div> -->
+
+
+<p>
+ 123123123123123 <br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+
+</p>
+
+<p>
+ 123123123123123 <br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+
+</p>
+<p>
+ 123123123123123 <br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+
+</p>
+<p>
+ 123123123123123 <br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+ 123123123123123<br/>
+
+</p>
+</body>
+</html>
